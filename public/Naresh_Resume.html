@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Naresh Chaudhary — Professional Resume</title>
+  <style>
+    body { font-family: Arial, Helvetica, sans-serif; color: #14212B; background: #FAF7F0; padding: 40px 20px; max-width: 800px; margin: 0 auto; line-height: 1.45; font-size: 13px; }
+    
+    /* Top Action Bar (Hidden during Print) */
+    .no-print-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #14212B;
+      color: #FAF7F0;
+      padding: 12px 20px;
+      border-radius: 4px;
+      margin-bottom: 30px;
+      font-family: monospace;
+      font-size: 12px;
+    }
+    .no-print-bar a, .no-print-bar button {
+      background: #B8863E;
+      color: #FAF7F0;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 2px;
+      font-weight: bold;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: monospace;
+      font-size: 12px;
+    }
+    .no-print-bar button:hover, .no-print-bar a:hover {
+      background: #96692B;
+    }
+    .no-print-bar .back-btn {
+      background: #33546C;
+    }
+    .no-print-bar .back-btn:hover {
+      background: #243d4f;
+    }
+
+    h1 { font-size: 22px; margin: 0 0 4px 0; text-transform: uppercase; letter-spacing: 0.5px; }
+    .subtitle { font-size: 13px; font-weight: bold; color: #33546C; margin-bottom: 6px; }
+    .contact { font-size: 11px; color: #4C5C66; border-bottom: 2px solid #14212B; padding-bottom: 8px; margin-bottom: 16px; }
+    h2 { font-size: 13px; text-transform: uppercase; border-bottom: 1px solid #DCD3BE; padding-bottom: 3px; margin-top: 18px; margin-bottom: 8px; font-weight: bold; letter-spacing: 0.5px; color: #14212B; }
+    p { margin: 0 0 8px 0; }
+    ul { padding-left: 18px; margin: 0 0 8px 0; }
+    li { margin-bottom: 3px; }
+    .row { display: flex; justify-content: space-between; font-weight: bold; font-size: 12px; }
+    .subrow { font-style: italic; color: #4C5C66; font-size: 11px; margin-bottom: 4px; }
+
+    @media print {
+      body { background: #fff; padding: 0; margin: 0; }
+      .no-print-bar { display: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Action Bar (Hidden when Printing/Saving PDF) -->
+  <div class="no-print-bar">
+    <div>
+      <strong>NARESH CHAUDHARY — ATS RESUME</strong>
+    </div>
+    <div style="display: flex; gap: 10px;">
+      <a href="/" class="back-btn">&larr; Portfolio Home</a>
+      <button onclick="window.print()">&#128438; Print / Save as PDF</button>
+    </div>
+  </div>
+
+  <h1>NARESH CHAUDHARY</h1>
+  <div class="subtitle">Full Stack Developer (MERN) | React.js | Node.js | JavaScript</div>
+  <div class="contact">
+    +91-7990039450 | dev.naresh608@gmail.com | linkedin.com/in/naresh608 | github.com/dev-naresh608
+  </div>
+
+  <h2>PROFILE SUMMARY</h2>
+  <p>Full Stack Developer (MERN) with hands-on experience architecting and building production-style web applications, including a multi-vendor ecommerce platform with four-role access control and domain-driven backend systems. Skilled in designing RESTful APIs, implementing JWT authentication and role-based access control (RBAC), and building responsive, component-based user interfaces with React.js and Tailwind CSS.</p>
+
+  <h2>TECHNICAL SKILLS</h2>
+  <p><strong>Languages:</strong> JavaScript (ES6+), HTML5, CSS3<br>
+  <strong>Frontend Development:</strong> React.js, Component-Based Architecture, Responsive Design, Tailwind CSS, Bootstrap CSS, Axios, UI/UX<br>
+  <strong>Backend Development:</strong> Node.js, Express.js, RESTful API Development, JWT Authentication, Role-Based Access Control (RBAC), Error Handling<br>
+  <strong>Database:</strong> MongoDB, MySQL, Database Design, Mongoose ODM<br>
+  <strong>Tools & Platforms:</strong> Git, GitHub, Postman, Cloudinary, VS Code, npm</p>
+
+  <h2>INTERNSHIP EXPERIENCE</h2>
+  <div class="row">
+    <span>Frontend Developer Intern — Aavishkruti Solutions</span>
+    <span>Jan 2026 – Jun 2026</span>
+  </div>
+  <ul>
+    <li>Built responsive, reusable React.js UI components deployed across multiple sections of production web applications.</li>
+    <li>Integrated RESTful APIs into frontend components, partnering closely with backend developers to ship functional, production-ready features.</li>
+    <li>Followed industry-standard development practices, including component reusability, Git-based version control, and code review workflows.</li>
+  </ul>
+
+  <div class="row" style="margin-top: 8px;">
+    <span>AI Fundamentals Intern — Microsoft Azure</span>
+    <span>May 13 – Jun 13, 2025</span>
+  </div>
+  <ul>
+    <li>Gained hands-on experience with Azure Cognitive Services and fundamentals of cloud-based AI deployment.</li>
+  </ul>
+
+  <div class="row" style="margin-top: 8px;">
+    <span>AI Intern — IBM SkillsBuild</span>
+    <span>Jul 2 – Jul 17, 2025</span>
+  </div>
+  <ul>
+    <li>Implemented foundational ML models and performed data preprocessing on real-world datasets.</li>
+  </ul>
+
+  <h2>PROJECTS</h2>
+  <div class="row">
+    <span>SupplyNest — Enterprise Distribution & Inventory Management System</span>
+  </div>
+  <div class="subrow">Node.js, Express.js, MongoDB, Mongoose, React, Vite, Zod, Cloudinary, Winston</div>
+  <ul>
+    <li>Architected a domain-oriented modular backend decoupling Authentication, Product Catalog, Inventory, RBAC, and Stock Transactions.</li>
+    <li>Implemented defense-in-depth security with HTTP-only JWT cookies, bcrypt hashing, rate limiting, and Helmet headers.</li>
+  </ul>
+
+  <div class="row" style="margin-top: 8px;">
+    <span>Novexa — Multi-Vendor Commerce Platform</span>
+  </div>
+  <div class="subrow">React.js, Node.js, Express.js, MongoDB, Tailwind CSS, Cloudinary, JWT</div>
+  <ul>
+    <li>Architected and developed a full-stack multi-vendor ecommerce platform supporting four distinct user roles (Customer, Seller, Driver, Admin).</li>
+    <li>Designed and implemented RESTful APIs for product listings, shopping cart, and order processing backed by MongoDB document models.</li>
+  </ul>
+
+  <h2>EDUCATION</h2>
+  <div class="row">
+    <span>Bachelor of Engineering (B.E.) — Information Technology</span>
+    <span>2022 – 2026</span>
+  </div>
+  <div class="subrow">Vishwakarma Government Engineering College | CGPA: 7.7 / 10</div>
+
+  <h2>ACHIEVEMENTS</h2>
+  <ul>
+    <li>Participated in Smart India Hackathon 2024, collaborating in a team to design and pitch a technical solution under time constraints.</li>
+    <li>Completed a 6-month Frontend Developer internship at Aavishkruti Solutions, contributing to production web applications.</li>
+  </ul>
+
+</body>
+</html>
