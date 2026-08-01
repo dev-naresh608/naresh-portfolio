@@ -4,6 +4,8 @@ import { Layout } from './components/layout/Layout';
 import { Home } from './pages/Home';
 import { NotFound } from './pages/NotFound';
 
+import { ScrollToTop } from './components/common/ScrollToTop';
+
 const SupplyNestCaseStudy = lazy(() => import('./pages/projects/SupplyNestCaseStudy').then(m => ({ default: m.SupplyNestCaseStudy })));
 const Resume = lazy(() => import('./pages/Resume').then(m => ({ default: m.Resume })));
 
@@ -19,6 +21,7 @@ const LoadingFallback = () => (
 export default function App() {
   return (
     <Router>
+      <ScrollToTop />
       <Layout>
         <Suspense fallback={<LoadingFallback />}>
           <Routes>
