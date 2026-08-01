@@ -22,6 +22,20 @@ Rather than functioning as a traditional developer landing page, it focuses on t
 
 ---
 
+## Contact Form Configuration
+
+The portfolio contact form uses EmailJS for direct email transmission.
+
+Required environment variables in `.env`:
+
+```env
+VITE_EMAILJS_SERVICE_ID=
+VITE_EMAILJS_TEMPLATE_ID=
+VITE_EMAILJS_PUBLIC_KEY=
+```
+
+---
+
 ## About
 
 I'm a Software Engineer with hands-on experience building full-stack applications using JavaScript, React, Node.js, Express.js, and MongoDB.

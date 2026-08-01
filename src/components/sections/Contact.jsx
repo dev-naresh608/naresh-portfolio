@@ -1,40 +1,129 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Mail, Send, CheckCircle2, AlertCircle } from 'lucide-react';
+import React, { useState, useRef } from 'react';
+import { Mail, Send, CheckCircle2, AlertCircle, RefreshCw } from 'lucide-react';
 import { profileData } from '../../data/profile';
 import { GithubIcon, LinkedinIcon } from '../common/Icons';
+import { sendContactEmail } from '../../services/email.service';
 
 export const Contact = () => {
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: '',
+    company_website: '' // Honeypot field for abuse protection
+  });
+
+  const [fieldErrors, setFieldErrors] = useState({});
   const [status, setStatus] = useState('idle'); // idle | submitting | success | error
-  const [errorMessage, setErrorMessage] = useState('');
+  const [genericError, setGenericError] = useState('');
+  const [cooldown, setCooldown] = useState(false);
+
+  const nameInputRef = useRef(null);
+  const emailInputRef = useRef(null);
+  const messageInputRef = useRef(null);
 
   const handleChange = (e) => {
-    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+    
+    // Clear field-level validation error on user edit
+    if (fieldErrors[name]) {
+      setFieldErrors(prev => ({ ...prev, [name]: '' }));
+    }
   };
 
-  const handleSubmit = (e) => {
+  const validateForm = () => {
+    const errors = {};
+    const trimmedName = formData.name.trim();
+    const trimmedEmail = formData.email.trim();
+    const trimmedMessage = formData.message.trim();
+
+    // Name Validation
+    if (!trimmedName) {
+      errors.name = 'Please enter your name.';
+    } else if (trimmedName.length > 80) {
+      errors.name = 'Name must be under 80 characters.';
+    }
+
+    // Email Validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!trimmedEmail) {
+      errors.email = 'Please enter your email address.';
+    } else if (!emailRegex.test(trimmedEmail)) {
+      errors.email = 'Please enter a valid email address.';
+    } else if (trimmedEmail.length > 120) {
+      errors.email = 'Email address is too long.';
+    }
+
+    // Message Validation
+    if (!trimmedMessage) {
+      errors.message = 'Please enter a message.';
+    } else if (trimmedMessage.length < 10) {
+      errors.message = 'Your message is too short (min 10 characters).';
+    } else if (trimmedMessage.length > 2000) {
+      errors.message = 'Message must be under 2000 characters.';
+    }
+
+    setFieldErrors(errors);
+
+    // Focus first invalid field for accessibility
+    if (errors.name && nameInputRef.current) {
+      nameInputRef.current.focus();
+    } else if (errors.email && emailInputRef.current) {
+      emailInputRef.current.focus();
+    } else if (errors.message && messageInputRef.current) {
+      messageInputRef.current.focus();
+    }
+
+    return Object.keys(errors).length === 0;
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
-      setStatus('error');
-      setErrorMessage('Please complete all required fields.');
+
+    // Ignore submit if currently submitting or in cooldown
+    if (status === 'submitting' || cooldown) return;
+
+    // Honeypot spam check: Silent abort if bot fills hidden field
+    if (formData.company_website) {
+      setStatus('success');
+      setFormData({ name: '', email: '', message: '', company_website: '' });
       return;
     }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.email)) {
-      setStatus('error');
-      setErrorMessage('Please enter a valid email address.');
-      return;
-    }
+    // Run client-side field validation
+    if (!validateForm()) return;
 
     setStatus('submitting');
+    setGenericError('');
 
-    // Simulating form handling state safely (ready for EmailJS/API backend endpoint integration)
-    setTimeout(() => {
+    try {
+      await sendContactEmail({
+        name: formData.name.trim(),
+        email: formData.email.trim(),
+        message: formData.message.trim(),
+      });
+
+      // Clear form inputs only AFTER successful delivery
       setStatus('success');
-      setFormData({ name: '', email: '', message: '' });
-    }, 800);
+      setFormData({ name: '', email: '', message: '', company_website: '' });
+      setFieldErrors({});
+
+      // Set client-side submission cooldown (15s)
+      setCooldown(true);
+      setTimeout(() => setCooldown(false), 15000);
+
+    } catch (err) {
+      // PRESERVE user input in state upon error so user doesn't lose their text
+      setStatus('error');
+      setGenericError(
+        "I couldn't send your message right now. Please try again, or email me directly at dev.naresh608@gmail.com."
+      );
+    }
+  };
+
+  const handleRetry = () => {
+    setStatus('idle');
+    setGenericError('');
   };
 
   return (
@@ -78,7 +167,7 @@ export const Contact = () => {
               
               {/* Direct Email Card */}
               <a
-                href={`mailto:${profileData.email}`}
+                href={`mailto:${profileData.email}?subject=Portfolio%20Enquiry`}
                 className="p-4 border border-[#14212B] bg-[#FAF7F0] hover:bg-[#F1EBDD] flex items-center gap-4 transition-colors group block"
               >
                 <div className="p-3 bg-[#B8863E] text-[#FAF7F0] shrink-0">
@@ -143,33 +232,77 @@ export const Contact = () => {
               
               <div className="flex items-center justify-between border-b border-[#DCD3BE] pb-3 mb-6 font-mono text-xs">
                 <span className="font-semibold text-[#14212B]">FORM // TRANSMIT DIRECT MESSAGE</span>
-                <span className="text-[10px] text-[#8A9399]">3 REQUIRED FIELDS</span>
+                <span className="text-[10px] text-[#8A9399]">EMAILJS INTEGRATED</span>
               </div>
 
+              {/* Accessible Live Region for Screen Readers */}
+              <div aria-live="polite" className="sr-only">
+                {status === 'submitting' && 'Sending message...'}
+                {status === 'success' && 'Message sent successfully.'}
+                {status === 'error' && 'Unable to send message.'}
+              </div>
+
+              {/* Success Notification View */}
               {status === 'success' ? (
                 <div className="p-6 border border-[#4C7A5B] bg-[#4C7A5B]/10 text-center space-y-3 font-mono text-xs">
                   <CheckCircle2 className="w-8 h-8 text-[#4C7A5B] mx-auto" />
-                  <h3 className="font-bold text-sm text-[#14212B]">MESSAGE RECEIVED</h3>
-                  <p className="text-[#4C5C66]">
-                    Thank you for writing. I will respond to your email at my earliest opportunity.
+                  <h3 className="font-bold text-sm text-[#14212B]">MESSAGE SENT SUCCESSFULLY</h3>
+                  <p className="text-[#4C5C66] font-body text-xs sm:text-sm">
+                    Thanks for reaching out. I&apos;ll get back to you as soon as I can.
                   </p>
                   <button
                     type="button"
                     onClick={() => setStatus('idle')}
-                    className="mt-2 px-4 py-2 border border-[#14212B] bg-[#FAF7F0] text-[#14212B] uppercase text-[11px] font-semibold hover:bg-[#F1EBDD]"
+                    className="mt-2 px-4 py-2 border border-[#14212B] bg-[#FAF7F0] text-[#14212B] uppercase text-[11px] font-semibold hover:bg-[#F1EBDD] transition-colors"
                   >
                     Send Another Message
                   </button>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-5">
+                <form onSubmit={handleSubmit} noValidate className="space-y-5">
                   
+                  {/* Error Notification & Fallback Box */}
                   {status === 'error' && (
-                    <div className="p-3 border border-[#96692B] bg-[#B8863E]/10 text-[#96692B] font-mono text-xs flex items-center gap-2">
-                      <AlertCircle className="w-4 h-4 shrink-0" />
-                      <span>{errorMessage}</span>
+                    <div className="p-4 border border-[#33546C] bg-[#F1EBDD] text-[#14212B] font-mono text-xs space-y-3">
+                      <div className="flex items-start gap-2 text-[#96692B]">
+                        <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
+                        <span>{genericError}</span>
+                      </div>
+
+                      <div className="flex flex-wrap items-center gap-3 pt-1 border-t border-[#DCD3BE]">
+                        <button
+                          type="button"
+                          onClick={handleRetry}
+                          className="px-3 py-1.5 border border-[#14212B] bg-[#FAF7F0] text-[#14212B] font-semibold uppercase text-[10px] flex items-center gap-1 hover:bg-[#F1EBDD]"
+                        >
+                          <RefreshCw className="w-3 h-3 text-[#B8863E]" />
+                          <span>Try Again</span>
+                        </button>
+
+                        <a
+                          href={`mailto:${profileData.email}?subject=Portfolio%20Enquiry`}
+                          className="px-3 py-1.5 border border-[#14212B] bg-[#14212B] text-[#FAF7F0] font-semibold uppercase text-[10px] flex items-center gap-1 hover:bg-[#33546C]"
+                        >
+                          <Mail className="w-3 h-3 text-[#E4C892]" />
+                          <span>Email me directly</span>
+                        </a>
+                      </div>
                     </div>
                   )}
+
+                  {/* Hidden Honeypot Field for Spam Protection */}
+                  <div style={{ display: 'none' }} aria-hidden="true">
+                    <label htmlFor="company_website">Do not fill this</label>
+                    <input
+                      id="company_website"
+                      name="company_website"
+                      type="text"
+                      tabIndex="-1"
+                      value={formData.company_website}
+                      onChange={handleChange}
+                      autoComplete="off"
+                    />
+                  </div>
 
                   {/* Name Input */}
                   <div className="space-y-1">
@@ -180,15 +313,25 @@ export const Contact = () => {
                       Your Name <span className="text-[#B8863E]">*</span>
                     </label>
                     <input
+                      ref={nameInputRef}
                       id="contact-name"
                       name="name"
                       type="text"
                       required
+                      aria-invalid={!!fieldErrors.name}
+                      aria-describedby={fieldErrors.name ? "name-error" : undefined}
                       value={formData.name}
                       onChange={handleChange}
                       placeholder="e.g. Alex Rivera"
-                      className="w-full px-3.5 py-2.5 border border-[#DCD3BE] bg-[#F1EBDD]/50 font-body text-sm text-[#14212B] focus:border-[#14212B] focus:bg-[#FAF7F0] focus-visible:outline-none transition-colors"
+                      className={`w-full px-3.5 py-2.5 border bg-[#F1EBDD]/50 font-body text-sm text-[#14212B] focus:bg-[#FAF7F0] focus-visible:outline-none transition-colors ${
+                        fieldErrors.name ? 'border-[#33546C] bg-red-50/20' : 'border-[#DCD3BE] focus:border-[#14212B]'
+                      }`}
                     />
+                    {fieldErrors.name && (
+                      <p id="name-error" className="font-mono text-[11px] text-[#33546C] mt-0.5">
+                        {fieldErrors.name}
+                      </p>
+                    )}
                   </div>
 
                   {/* Email Input */}
@@ -200,15 +343,25 @@ export const Contact = () => {
                       Email Address <span className="text-[#B8863E]">*</span>
                     </label>
                     <input
+                      ref={emailInputRef}
                       id="contact-email"
                       name="email"
                       type="email"
                       required
+                      aria-invalid={!!fieldErrors.email}
+                      aria-describedby={fieldErrors.email ? "email-error" : undefined}
                       value={formData.email}
                       onChange={handleChange}
                       placeholder="e.g. alex@company.com"
-                      className="w-full px-3.5 py-2.5 border border-[#DCD3BE] bg-[#F1EBDD]/50 font-body text-sm text-[#14212B] focus:border-[#14212B] focus:bg-[#FAF7F0] focus-visible:outline-none transition-colors"
+                      className={`w-full px-3.5 py-2.5 border bg-[#F1EBDD]/50 font-body text-sm text-[#14212B] focus:bg-[#FAF7F0] focus-visible:outline-none transition-colors ${
+                        fieldErrors.email ? 'border-[#33546C] bg-red-50/20' : 'border-[#DCD3BE] focus:border-[#14212B]'
+                      }`}
                     />
+                    {fieldErrors.email && (
+                      <p id="email-error" className="font-mono text-[11px] text-[#33546C] mt-0.5">
+                        {fieldErrors.email}
+                      </p>
+                    )}
                   </div>
 
                   {/* Message Input */}
@@ -220,25 +373,37 @@ export const Contact = () => {
                       Message <span className="text-[#B8863E]">*</span>
                     </label>
                     <textarea
+                      ref={messageInputRef}
                       id="contact-message"
                       name="message"
                       rows="4"
                       required
+                      aria-invalid={!!fieldErrors.message}
+                      aria-describedby={fieldErrors.message ? "message-error" : undefined}
                       value={formData.message}
                       onChange={handleChange}
                       placeholder="Briefly describe your opportunity or inquiry..."
-                      className="w-full px-3.5 py-2.5 border border-[#DCD3BE] bg-[#F1EBDD]/50 font-body text-sm text-[#14212B] focus:border-[#14212B] focus:bg-[#FAF7F0] focus-visible:outline-none transition-colors resize-none"
+                      className={`w-full px-3.5 py-2.5 border bg-[#F1EBDD]/50 font-body text-sm text-[#14212B] focus:bg-[#FAF7F0] focus-visible:outline-none transition-colors resize-none ${
+                        fieldErrors.message ? 'border-[#33546C] bg-red-50/20' : 'border-[#DCD3BE] focus:border-[#14212B]'
+                      }`}
                     />
+                    {fieldErrors.message && (
+                      <p id="message-error" className="font-mono text-[11px] text-[#33546C] mt-0.5">
+                        {fieldErrors.message}
+                      </p>
+                    )}
                   </div>
 
                   {/* Submit Action Button with Brass Accent */}
                   <button
                     type="submit"
-                    disabled={status === 'submitting'}
-                    className="w-full py-3.5 border border-[#96692B] bg-[#B8863E] hover:bg-[#96692B] text-[#FAF7F0] font-mono text-xs font-bold tracking-wider uppercase flex items-center justify-center gap-2 transition-colors shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#14212B]"
+                    disabled={status === 'submitting' || cooldown}
+                    className="w-full py-3.5 border border-[#96692B] bg-[#B8863E] hover:bg-[#96692B] text-[#FAF7F0] font-mono text-xs font-bold tracking-wider uppercase flex items-center justify-center gap-2 transition-colors shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#14212B] disabled:opacity-60 disabled:cursor-not-allowed"
                   >
                     {status === 'submitting' ? (
-                      <span>TRANSMITTING MESSAGE...</span>
+                      <span>SENDING...</span>
+                    ) : cooldown ? (
+                      <span>MESSAGE SENT (COOLDOWN)</span>
                     ) : (
                       <>
                         <span>SEND MESSAGE</span>
