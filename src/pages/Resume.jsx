@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { ArrowLeft, Download, ExternalLink, Mail, Phone, MapPin, ShieldCheck, Database, Layers, Terminal, CheckCircle2, GitCommit } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from '../components/common/Icons';
 import { resumeData } from '../data/resume';
+import { siteConfig, isValidUrl } from '../config/site.config';
 
 export const Resume = () => {
   const [activeSection, setActiveSection] = useState('profile');
@@ -273,10 +274,12 @@ export const Resume = () => {
                             Case Study
                           </Link>
                         )}
-                        <a href={proj.repo} target="_blank" rel="noopener noreferrer" className="text-[#14212B] hover:text-[#B8863E] font-semibold inline-flex items-center gap-1">
-                          <GithubIcon className="w-3.5 h-3.5" />
-                          <span>Repo</span>
-                        </a>
+                        {isValidUrl(proj.repo) && (
+                          <a href={proj.repo} target="_blank" rel="noopener noreferrer" className="text-[#14212B] hover:text-[#B8863E] font-semibold inline-flex items-center gap-1">
+                            <GithubIcon className="w-3.5 h-3.5" />
+                            <span>Repo</span>
+                          </a>
+                        )}
                       </div>
                     </div>
                   </article>
@@ -374,7 +377,7 @@ export const Resume = () => {
               Naresh Chaudhary
             </div>
             <div className="font-mono text-xs text-[#4C5C66]">
-              Gujarat, India &bull; dev.naresh608@gmail.com
+              {siteConfig.contact.location} &bull; {siteConfig.contact.email}
             </div>
           </div>
 

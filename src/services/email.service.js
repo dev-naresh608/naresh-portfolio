@@ -1,17 +1,17 @@
 import emailjs from '@emailjs/browser';
+import { siteConfig } from '../config/site.config';
 
 /**
  * Service layer responsible for EmailJS integration and parameter mapping.
+ * Consumes centralized configuration from siteConfig.
  */
 export const sendContactEmail = async ({ name, email, message }) => {
-  const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID || 'service_u6t9cdx';
-  const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'temp_pzs0o23_portfolio';
-  const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'cJxZCC0uYl4qszrSU';
+  const { serviceId, templateId, publicKey } = siteConfig.emailjs;
 
   // Validate configuration presence without exposing actual key values
   if (!serviceId || !templateId || !publicKey) {
     if (import.meta.env.DEV) {
-      console.error('[EmailService] Missing required EmailJS environment variables.');
+      console.error('[EmailService] Missing required EmailJS configuration values.');
     }
     throw new Error('CONFIG_MISSING');
   }

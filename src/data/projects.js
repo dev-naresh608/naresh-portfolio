@@ -1,3 +1,5 @@
+import { siteConfig } from '../config/site.config';
+
 export const projectsData = [
   {
     id: "01",
@@ -20,7 +22,7 @@ export const projectsData = [
       "Cloudinary",
       "Winston",
     ],
-    github: "https://github.com/dev-naresh608/supplyNest",
+    github: siteConfig.projects.supplyNest.repository,
     demo: null,
     hasCaseStudy: true,
     caseStudyUrl: "/projects/supplynest",
@@ -73,7 +75,7 @@ export const projectsData = [
       "Distributed Concepts",
       "REST APIs",
     ],
-    github: "https://github.com/dev-naresh608",
+    github: siteConfig.projects.edgeSync.repository,
     demo: null,
     hasCaseStudy: false,
     caseStudyUrl: null,
@@ -122,7 +124,7 @@ export const projectsData = [
       "Cloudinary",
       "JWT",
     ],
-    github: "https://github.com/dev-naresh608",
+    github: siteConfig.projects.novexa.repository,
     demo: null,
     hasCaseStudy: false,
     caseStudyUrl: null,

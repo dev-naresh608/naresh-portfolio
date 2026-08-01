@@ -1,9 +1,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ArrowRight, ShieldCheck, Database, Layers, Server, FileCode, RefreshCw, Cpu, Activity, AlertTriangle, CheckCircle2, ShoppingBag, Truck, Store, UserCheck, ArrowUpRight } from 'lucide-react';
+import { ArrowRight, ShieldCheck, Database, Layers, FileCode, RefreshCw, CheckCircle2, AlertTriangle, ShoppingBag, Truck, Store, UserCheck } from 'lucide-react';
 import { projectsData } from '../../data/projects';
 import { GithubIcon } from '../common/Icons';
+import { isValidUrl } from '../../config/site.config';
 
 export const Projects = () => {
   const supplyNest = projectsData.find(p => p.slug === 'supplynest') || projectsData[0];
@@ -157,15 +158,17 @@ export const Projects = () => {
                     <ArrowRight className="w-4 h-4 text-[#E4C892]" />
                   </Link>
 
-                  <a
-                    href={supplyNest.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2 px-5 py-2.5 border border-[#14212B] bg-[#FAF7F0] hover:bg-[#F1EBDD] text-[#14212B] font-mono text-xs font-semibold uppercase tracking-wider transition-colors shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B8863E]"
-                  >
-                    <GithubIcon className="w-4 h-4" />
-                    <span>View Repository</span>
-                  </a>
+                  {isValidUrl(supplyNest.github) && (
+                    <a
+                      href={supplyNest.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center gap-2 px-5 py-2.5 border border-[#14212B] bg-[#FAF7F0] hover:bg-[#F1EBDD] text-[#14212B] font-mono text-xs font-semibold uppercase tracking-wider transition-colors shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B8863E]"
+                    >
+                      <GithubIcon className="w-4 h-4" />
+                      <span>View Repository</span>
+                    </a>
+                  )}
                 </div>
               </div>
 
@@ -409,15 +412,17 @@ export const Projects = () => {
                 </div>
 
                 <div className="pt-2 flex flex-wrap items-center gap-4">
-                  <a
-                    href={edgeSync.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2 px-5 py-2.5 border border-[#14212B] bg-[#14212B] hover:bg-[#33546C] text-[#FAF7F0] font-mono text-xs font-semibold uppercase tracking-wider transition-colors shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B8863E]"
-                  >
-                    <GithubIcon className="w-4 h-4 text-[#E4C892]" />
-                    <span>View Repository</span>
-                  </a>
+                  {isValidUrl(edgeSync.github) && (
+                    <a
+                      href={edgeSync.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center gap-2 px-5 py-2.5 border border-[#14212B] bg-[#14212B] hover:bg-[#33546C] text-[#FAF7F0] font-mono text-xs font-semibold uppercase tracking-wider transition-colors shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B8863E]"
+                    >
+                      <GithubIcon className="w-4 h-4 text-[#E4C892]" />
+                      <span>View Repository</span>
+                    </a>
+                  )}
                 </div>
               </div>
 
@@ -539,15 +544,17 @@ export const Projects = () => {
 
                 {/* Action Buttons */}
                 <div className="pt-2 flex flex-wrap items-center gap-4">
-                  <a
-                    href={novexa.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2 px-5 py-2.5 border border-[#14212B] bg-[#14212B] hover:bg-[#33546C] text-[#FAF7F0] font-mono text-xs font-semibold uppercase tracking-wider transition-colors shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B8863E]"
-                  >
-                    <GithubIcon className="w-4 h-4 text-[#E4C892]" />
-                    <span>View Repository</span>
-                  </a>
+                  {isValidUrl(novexa.github) && (
+                    <a
+                      href={novexa.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center gap-2 px-5 py-2.5 border border-[#14212B] bg-[#14212B] hover:bg-[#33546C] text-[#FAF7F0] font-mono text-xs font-semibold uppercase tracking-wider transition-colors shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B8863E]"
+                    >
+                      <GithubIcon className="w-4 h-4 text-[#E4C892]" />
+                      <span>View Repository</span>
+                    </a>
+                  )}
                 </div>
 
               </div>

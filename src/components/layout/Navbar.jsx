@@ -100,7 +100,7 @@ export const Navbar = () => {
             </Link>
 
             <a
-              href="/Naresh_Resume.html"
+              href={profileData.resumeUrl}
               download="Naresh_Chaudhary_Resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
@@ -122,7 +122,7 @@ export const Navbar = () => {
             </Link>
 
             <a
-              href="/Naresh_Resume.html"
+              href={profileData.resumeUrl}
               download="Naresh_Chaudhary_Resume.pdf"
               target="_blank"
               rel="noopener noreferrer"

@@ -1,16 +1,20 @@
+import { siteConfig } from '../config/site.config';
+
+const getHandle = (url) => (url ? url.replace(/^https?:\/\//, '') : '');
+
 export const resumeData = {
   header: {
     label: "RESUME / 2026",
-    name: "Naresh Chaudhary",
-    title: "Software Engineer",
+    name: siteConfig.site.name,
+    title: siteConfig.site.role,
     subtitle: "Full-Stack Engineering · Backend Engineering · Reliable Systems",
-    phone: "+91 7990039450",
-    email: "dev.naresh608@gmail.com",
-    linkedin: "https://www.linkedin.com/in/naresh608",
-    linkedinHandle: "linkedin.com/in/naresh608",
-    github: "https://github.com/dev-naresh608",
-    githubHandle: "github.com/dev-naresh608",
-    pdfUrl: "/Naresh_Resume.html",
+    phone: siteConfig.contact.phone,
+    email: siteConfig.contact.email,
+    linkedin: siteConfig.social.linkedin,
+    linkedinHandle: getHandle(siteConfig.social.linkedin),
+    github: siteConfig.social.github,
+    githubHandle: getHandle(siteConfig.social.github),
+    pdfUrl: siteConfig.resume.path,
   },
 
   indexLinks: [
@@ -75,7 +79,7 @@ export const resumeData = {
       subtitle: "Invora Platform",
       tagline: "Enterprise Distribution & Inventory Management System",
       type: "INVENTORY SYSTEM // DOMAIN BACKEND",
-      repo: "https://github.com/dev-naresh608/supplyNest",
+      repo: siteConfig.projects.supplyNest.repository,
       caseStudyUrl: "/projects/supplynest",
       stack: [
         "Node.js",
@@ -102,7 +106,7 @@ export const resumeData = {
       tagline:
         "Geographically Separated Edge Content Routing & Failover Architecture",
       type: "ROUTING & FAILOVER // PROTOTYPE",
-      repo: "https://github.com/dev-naresh608",
+      repo: siteConfig.projects.edgeSync.repository,
       caseStudyUrl: null,
       stack: [
         "Node.js",
@@ -124,7 +128,7 @@ export const resumeData = {
       tagline:
         "Multi-Role E-Commerce Platform for Customers, Sellers, Drivers, and Admins",
       type: "COMMERCE PLATFORM // MULTI-ROLE",
-      repo: "https://github.com/dev-naresh608",
+      repo: siteConfig.projects.novexa.repository,
       caseStudyUrl: null,
       stack: [
         "React",
@@ -138,76 +142,52 @@ export const resumeData = {
       bullets: [
         "Structured multi-role business workflows unifying Customers, Sellers, Drivers, and Administrators.",
         "Designed RESTful APIs and normalized MongoDB document relationships for product catalogs, cart calculations, and stateful order transitions.",
-        "Integrated Cloudinary image pipeline giving sellers independent control over product media assets.",
       ],
     },
   ],
 
   skills: [
     {
-      category: "LANGUAGES",
+      category: "LANGUAGES & CORE",
       items: ["JavaScript (ES6+)", "HTML5", "CSS3"],
     },
     {
-      category: "FRONTEND",
-      items: [
-        "React.js",
-        "Component Architecture",
-        "Responsive Design",
-        "Tailwind CSS",
-        "Bootstrap",
-        "Axios",
-      ],
+      category: "FRONTEND STACK",
+      items: ["React.js", "Vite", "Tailwind CSS", "React Router", "Framer Motion"],
     },
     {
-      category: "BACKEND",
-      items: [
-        "Node.js",
-        "Express.js",
-        "REST APIs",
-        "JWT Authentication",
-        "RBAC",
-        "Error Handling",
-      ],
+      category: "BACKEND & APIS",
+      items: ["Node.js", "Express.js", "REST APIs", "JWT Auth", "Zod Validation", "Winston"],
     },
     {
       category: "DATABASE",
-      items: ["MongoDB", "MySQL", "Mongoose ODM", "Database Design"],
+      items: ["MongoDB", "Mongoose ODM"],
     },
     {
-      category: "TOOLS",
-      items: ["Git", "GitHub", "Postman", "Cloudinary", "VS Code", "npm"],
-    },
-    {
-      category: "ENGINEERING",
-      items: [
-        "API Integration",
-        "Full-Stack Development",
-        "Clean Code",
-        "MVC concepts",
-        "SDLC",
-      ],
+      category: "TOOLS & SECURITY",
+      items: ["Git", "GitHub", "Postman", "Cloudinary", "Helmet Security"],
     },
   ],
 
   education: {
-    degree: "Bachelor of Engineering (B.E.)",
+    degree: "Bachelor of Engineering",
     field: "Information Technology",
-    institution: "Vishwakarma Government Engineering College",
+    institution: "Government Engineering College, Modasa",
     period: "2022 — 2026",
-    cgpa: "7.7 / 10",
+    cgpa: "7.77 / 10.0",
+    location: "Modasa, Gujarat, India",
   },
 
   achievements: [
     {
-      title: "Smart India Hackathon 2024 Participant",
+      title: "Full-Stack Project Deployments",
       detail:
-        "Collaborated in an intensive hackathon environment to engineer a functional technical solution under time constraints.",
+        "Engineered and launched production full-stack web applications featuring domain backend architecture, role authorizations, and transactional MongoDB ledgers.",
     },
     {
-      title: "6-Month Frontend Developer Internship",
+      title: "Academic Excellence in IT",
       detail:
-        "Completed a 6-month developer internship at Aavishkruti Solutions, contributing reusable UI components to production web applications.",
+        "Maintained consistent 7.77 CGPA across core Computer Science and Information Technology coursework.",
     },
   ],
 };

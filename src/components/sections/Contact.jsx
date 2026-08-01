@@ -116,7 +116,7 @@ export const Contact = () => {
       // PRESERVE user input in state upon error so user doesn't lose their text
       setStatus('error');
       setGenericError(
-        "I couldn't send your message right now. Please try again, or email me directly at dev.naresh608@gmail.com."
+        `I couldn't send your message right now. Please try again, or email me directly at ${profileData.email}.`
       );
     }
   };
@@ -198,7 +198,7 @@ export const Contact = () => {
                     GITHUB REPOSITORIES
                   </span>
                   <span className="font-mono text-xs font-semibold text-[#14212B] group-hover:text-[#33546C] transition-colors">
-                    github.com/dev-naresh608
+                    {profileData.github.replace(/^https?:\/\//, '')}
                   </span>
                 </div>
               </a>
@@ -218,7 +218,7 @@ export const Contact = () => {
                     LINKEDIN PROFILE
                   </span>
                   <span className="font-mono text-xs font-semibold text-[#14212B] group-hover:text-[#33546C] transition-colors">
-                    linkedin.com/in/naresh608
+                    {profileData.linkedin.replace(/^https?:\/\//, '')}
                   </span>
                 </div>
               </a>

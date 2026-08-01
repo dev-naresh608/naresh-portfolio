@@ -1,5 +1,6 @@
 import React from 'react';
 import { profileData } from '../../data/profile';
+import { siteConfig } from '../../config/site.config';
 import { Mail, ArrowUp } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from '../common/Icons';
 
@@ -31,7 +32,7 @@ export const Footer = () => {
               Software Engineer specializing in full-stack web applications, backend services, REST APIs, and data modeling.
             </p>
             <div className="font-mono text-[11px] text-[#8A9399]">
-              LOC // Gujarat, India &bull; IST (UTC+5:30)
+              LOC // {siteConfig.contact.location} &bull; IST (UTC+5:30)
             </div>
           </div>
 
@@ -73,7 +74,7 @@ export const Footer = () => {
                   className="inline-flex items-center gap-2 hover:text-[#B8863E] transition-colors"
                 >
                   <GithubIcon className="w-3.5 h-3.5 text-[#14212B]" />
-                  <span>github.com/dev-naresh608</span>
+                  <span>{profileData.github.replace(/^https?:\/\//, '')}</span>
                 </a>
               </li>
               <li>
@@ -84,7 +85,7 @@ export const Footer = () => {
                   className="inline-flex items-center gap-2 hover:text-[#B8863E] transition-colors"
                 >
                   <LinkedinIcon className="w-3.5 h-3.5 text-[#33546C]" />
-                  <span>linkedin.com/in/naresh608</span>
+                  <span>{profileData.linkedin.replace(/^https?:\/\//, '')}</span>
                 </a>
               </li>
             </ul>

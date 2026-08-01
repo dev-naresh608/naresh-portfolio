@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { ArrowLeft, ShieldCheck, Database, Layers, FileCode, CheckCircle2, Lock, Terminal, Activity, GitBranch, Key, AlertCircle } from 'lucide-react';
 import { GithubIcon } from '../../components/common/Icons';
 import { projectsData } from '../../data/projects';
+import { isValidUrl } from '../../config/site.config';
 
 export const SupplyNestCaseStudy = () => {
   const project = projectsData.find(p => p.slug === 'supplynest') || projectsData[0];
@@ -31,15 +32,17 @@ export const SupplyNestCaseStudy = () => {
 
           <div className="flex items-center gap-3 font-mono text-xs">
             <span className="text-[#8A9399]">DOC_REF // CASE-STUDY-01</span>
-            <a
-              href={project.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-3 py-1 border border-[#14212B] bg-[#FAF7F0] hover:bg-[#14212B] text-[#14212B] hover:text-[#FAF7F0] font-semibold transition-colors"
-            >
-              <GithubIcon className="w-3.5 h-3.5" />
-              <span>VIEW REPO</span>
-            </a>
+            {isValidUrl(project.github) && (
+              <a
+                href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-3 py-1 border border-[#14212B] bg-[#FAF7F0] hover:bg-[#14212B] text-[#14212B] hover:text-[#FAF7F0] font-semibold transition-colors"
+              >
+                <GithubIcon className="w-3.5 h-3.5" />
+                <span>VIEW REPO</span>
+              </a>
+            )}
           </div>
         </div>
 
@@ -394,15 +397,17 @@ export const SupplyNestCaseStudy = () => {
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-4">
-            <a
-              href={project.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 border border-[#14212B] bg-[#14212B] hover:bg-[#33546C] text-[#FAF7F0] font-mono text-xs font-semibold uppercase tracking-wider transition-colors shadow-xs"
-            >
-              <GithubIcon className="w-4 h-4 text-[#E4C892]" />
-              <span>Explore SupplyNest Repository</span>
-            </a>
+            {isValidUrl(project.github) && (
+              <a
+                href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-6 py-3 border border-[#14212B] bg-[#14212B] hover:bg-[#33546C] text-[#FAF7F0] font-mono text-xs font-semibold uppercase tracking-wider transition-colors shadow-xs"
+              >
+                <GithubIcon className="w-4 h-4 text-[#E4C892]" />
+                <span>Explore SupplyNest Repository</span>
+              </a>
+            )}
 
             <Link
               to="/#projects"

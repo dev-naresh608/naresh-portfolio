@@ -25,6 +25,41 @@ It includes:
 
 ---
 
+## Environment Configuration
+
+Copy `.env.example` to `.env` and fill in your environment variables:
+
+```env
+VITE_SITE_URL=
+VITE_SITE_NAME=
+VITE_SITE_ROLE=
+
+VITE_CONTACT_EMAIL=
+VITE_CONTACT_PHONE=
+VITE_CONTACT_LOCATION=
+
+VITE_GITHUB_URL=
+VITE_LINKEDIN_URL=
+
+VITE_SUPPLYNEST_REPO_URL=
+VITE_EDGESYNC_REPO_URL=
+VITE_NOVEXA_REPO_URL=
+
+VITE_RESUME_PATH=
+
+VITE_EMAILJS_SERVICE_ID=
+VITE_EMAILJS_TEMPLATE_ID=
+VITE_EMAILJS_PUBLIC_KEY=
+```
+
+### Steps:
+1. Copy `.env.example` to `.env` in the project root.
+2. Fill browser-safe configuration values.
+3. Never commit `.env` to git (it is listed in `.gitignore`).
+4. Configure the exact same required variables in Vercel project environment settings.
+
+---
+
 ## Featured Projects
 
 ### 01 — SupplyNest
