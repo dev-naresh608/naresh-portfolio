@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Shield, Layers } from 'lucide-react';
+import { Terminal, Shield, Database, Layers } from 'lucide-react';
 
 export const About = () => {
   const engineeringPillars = [
