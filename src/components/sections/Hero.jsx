@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FileText, ArrowDown, Mail, ExternalLink, ShieldCheck, Database, Server, Cpu, Activity } from 'lucide-react';
+import { FileText, ArrowDown, Mail, ShieldCheck, Database, Server, Cpu } from 'lucide-react';
 import { profileData } from '../../data/profile';
 import { GithubIcon, LinkedinIcon } from '../common/Icons';
 

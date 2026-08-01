@@ -112,7 +112,7 @@ export const Contact = () => {
       setCooldown(true);
       setTimeout(() => setCooldown(false), 15000);
 
-    } catch (err) {
+    } catch {
       // PRESERVE user input in state upon error so user doesn't lose their text
       setStatus('error');
       setGenericError(

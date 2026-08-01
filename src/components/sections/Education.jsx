@@ -1,6 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import { GraduationCap, Award, Calendar, BookOpen, CheckCircle2 } from 'lucide-react';
+import { GraduationCap, Award } from 'lucide-react';
 import { educationData, achievementsData } from '../../data/education';
 
 export const Education = () => {

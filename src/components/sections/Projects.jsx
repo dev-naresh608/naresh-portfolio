@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ArrowRight, ShieldCheck, Database, Layers, FileCode, RefreshCw, CheckCircle2, AlertTriangle, ShoppingBag, Truck, Store, UserCheck } from 'lucide-react';
+import { ArrowRight, ShieldCheck, Layers, Database, FileCode, CheckCircle2, RefreshCw, AlertTriangle, ShoppingBag, Truck, Store, UserCheck } from 'lucide-react';
 import { projectsData } from '../../data/projects';
 import { GithubIcon } from '../common/Icons';
 import { isValidUrl } from '../../config/site.config';

@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { ArrowLeft, ShieldCheck, Database, Layers, FileCode, CheckCircle2, Lock, Terminal, Activity, GitBranch, Key, AlertCircle } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import { GithubIcon } from '../../components/common/Icons';
 import { projectsData } from '../../data/projects';
 import { isValidUrl } from '../../config/site.config';

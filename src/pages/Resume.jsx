@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { ArrowLeft, Download, ExternalLink, Mail, Phone, MapPin, ShieldCheck, Database, Layers, Terminal, CheckCircle2, GitCommit } from 'lucide-react';
+import { ArrowLeft, Download, Mail, Phone, GitCommit } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from '../components/common/Icons';
 import { resumeData } from '../data/resume';
 import { siteConfig, isValidUrl } from '../config/site.config';

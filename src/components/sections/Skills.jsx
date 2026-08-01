@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Terminal, Code, Server, Database, Wrench, Compass, ArrowUpRight } from 'lucide-react';
+import { Compass } from 'lucide-react';
 
 export const Skills = () => {
   const skillToolkit = [

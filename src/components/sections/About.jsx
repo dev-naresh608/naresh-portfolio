@@ -1,7 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Cpu, Terminal, Shield, Database, Layers, ArrowUpRight } from 'lucide-react';
-import { profileData } from '../../data/profile';
+import { Shield, Layers } from 'lucide-react';
 
 export const About = () => {
   const engineeringPillars = [

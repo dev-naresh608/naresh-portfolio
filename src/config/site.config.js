@@ -72,7 +72,7 @@ export const siteConfig = Object.freeze({
   },
 
   resume: {
-    path: env.VITE_RESUME_PATH || '/Naresh_Resume.html',
+    path: env.VITE_RESUME_PATH || '/Naresh_Resume.pdf',
   },
 
   emailjs: {

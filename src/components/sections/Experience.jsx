@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Briefcase, Calendar, MapPin, Code, CheckCircle2, GitCommit } from 'lucide-react';
+import { MapPin, GitCommit, Calendar } from 'lucide-react';
 import { experienceData } from '../../data/experience';
 
 export const Experience = () => {
