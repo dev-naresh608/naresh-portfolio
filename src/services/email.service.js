@@ -4,9 +4,9 @@ import emailjs from '@emailjs/browser';
  * Service layer responsible for EmailJS integration and parameter mapping.
  */
 export const sendContactEmail = async ({ name, email, message }) => {
-  const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-  const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-  const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+  const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID || 'service_u6t9cdx';
+  const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'temp_pzs0o23_portfolio';
+  const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'cJxZCC0uYl4qszrSU';
 
   // Validate configuration presence without exposing actual key values
   if (!serviceId || !templateId || !publicKey) {
