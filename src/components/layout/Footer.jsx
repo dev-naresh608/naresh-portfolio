@@ -31,9 +31,6 @@ export const Footer = () => {
             <p className="font-mono text-xs text-[#4C5C66] max-w-sm leading-relaxed">
               Software Engineer specializing in full-stack web applications, backend services, REST APIs, and data modeling.
             </p>
-            <div className="font-mono text-[11px] text-[#8A9399]">
-              LOC // {siteConfig.contact.location} &bull; IST (UTC+5:30)
-            </div>
           </div>
 
           {/* Col 2: Navigation Links */}
